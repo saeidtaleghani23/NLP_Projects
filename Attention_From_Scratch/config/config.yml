@@ -1,0 +1,35 @@
+MODEL:
+  source_sq_len: 500
+  target_sqe_len: 500
+  embedding_dim: 128 #256 #512
+  num_heads: 8
+  num_layers: 6
+  dropout: 0.1
+  ff_hidden_size: 512 #1024 #2048
+
+DATASET:
+  dataset_path: './dataset'
+  dataset_name: 'opus_books'
+  source_lang: 'en'
+  target_lang: 'fr'
+  tokenizer_file: "./tokenizer/tokenizer_{0}.json"
+
+TRAIN:
+  batch_size: 6
+  epochs: 50
+  lr: 0.0001
+  preload: False
+
+BENCHMARK:
+  model_name: 'Transformer'
+  model_folder: './trained_model/weights'
+  preload: None
+  experiment_name: './runs/translation_model'
+  results_path: ./results
+
+
+
+
+
+
+
