@@ -1,0 +1,40 @@
+# Configuration file for sentiment analysis training
+
+MODEL:
+  # Define transformer models
+  BERT: "bert-base-uncased"
+  DistilBERT: "distilbert-base-uncased"
+  RoBERTa: "roberta-base"
+  ALBERT: "albert-base-v2"
+  XLNet: "xlnet-base-cased"
+
+DATASET:
+  # Choose dataset name for training: imdb, yelp_polarity, or amazon_polarity
+  dataset: "imdb"  # Example: 'imdb', 'yelp_polarity', 'amazon_polarity'
+
+  
+TRAIN:
+  # Training parameters
+  batch_size: 16  # Example: 16, 32, etc.
+  num_epochs: 3  # Example: number of epochs (adjust based on your dataset size)
+  
+  # Learning rate settings
+  learning_rate: 5e-5
+  
+  # Regularization parameters
+  weight_decay: 0.01  # Weight decay for optimization
+  
+  # Scheduler and warmup settings
+  warmup_ratio: 0.1  # Warm-up for 10% of training steps
+  max_grad_norm: 1.0  # Gradient clipping value
+  
+  # Logging and checkpoints
+  logging_steps: 10
+  save_total_limit: 2  # Limit the number of saved checkpoints
+  
+  # Logging directories
+  output_dir: "./results"
+  logging_dir: "./logs"
+  
+  # Scheduler type
+  lr_scheduler_type: "cosine"  # Options: 'linear', 'cosine', etc.
