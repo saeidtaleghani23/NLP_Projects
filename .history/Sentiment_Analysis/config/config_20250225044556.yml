@@ -19,7 +19,7 @@ TRAIN:
   num_epochs: 30  # Example: number of epochs (adjust based on your dataset size)
   
   # Learning rate settings
-  learning_rate: 3e-5
+  learning_rate: 5e-5
   
   # Regularization parameters
   weight_decay: 0.01  # Weight decay for optimization
@@ -38,6 +38,3 @@ TRAIN:
   
   # Scheduler type
   lr_scheduler_type: "cosine"  # Options: 'linear', 'cosine', etc.
-
-  # Gradient clipping value
-  max_grad_norm: 1.0  

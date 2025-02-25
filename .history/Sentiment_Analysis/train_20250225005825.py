@@ -9,25 +9,14 @@ from transformers import AutoModelForSequenceClassification, Trainer, TrainingAr
 from sklearn.metrics import accuracy_score # type:ignore
 import yaml
 import os
-import numpy as np
-from sklearn.metrics import accuracy_score
-
 def compute_metrics(eval_pred):
-    """_summary_
-
-    Args:
-        eval_pred (_type_): _description_
-
-    Returns:
-        _type_: _description_
-    """
     logits, labels = eval_pred
-    predictions = np.argmax(logits, axis=-1)  # Get the predicted class label
+    predictions = torch.argmax(logits, dim=-1).numpy()
     return {"accuracy": accuracy_score(labels, predictions)}
 
 
 
-def train_model(model_name, dataset, config):
+def train_model(model_name, dataset, batch_size, num_epochs):
     """
     Trains a transformer model for text classification.
 
@@ -46,42 +35,32 @@ def train_model(model_name, dataset, config):
     tokenizer = AutoTokenizer.from_pretrained(model_name)
     model = AutoModelForSequenceClassification.from_pretrained(model_name, num_labels=2)  # Binary classification
     
-
-    # Check if GPU is available and set the device
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    model.to(device)  # Move model to GPU if available
-
-
     # Check dataset text key dynamically
     text_key = "text" if "text" in dataset["train"].column_names else dataset["train"].column_names[-1]
 
     # Tokenize dataset
     tokenized_dataset = dataset.map(lambda x: tokenizer(x[text_key], padding="max_length", truncation=True), batched=True)
 
-    # saving results
-    output_dir_results = os.path.join(config['TRAIN']['output_dir'], model_name)
-    os.makedirs(output_dir_results, exist_ok=True)  
-    # saving logs
-    logging_dir = os.path.join(config['TRAIN']['logging_dir'], model_name)
-    os.makedirs(logging_dir, exist_ok=True)  
+    # Training arguments
+    output_dir_results = f"./results/{model_name}"
+    os.makedirs(output_dir_results, exist_ok=True)  # Recommended for saving results
 
-
+    logging_dir = f"./logs/{model_name}"
+    os.makedirs(logging_dir, exist_ok=True)  # Recommended for saving logs
     training_args = TrainingArguments(
         output_dir=output_dir_results,
-        eval_strategy="epoch", # eval_strategy evaluation_strategy
+        evaluation_strategy="epoch",
         save_strategy="epoch",
         logging_dir=logging_dir,
-        logging_steps=config['TRAIN']['logging_steps'],  
-        per_device_train_batch_size=config['TRAIN']['batch_size'] ,
-        per_device_eval_batch_size= config['TRAIN']['batch_size'] ,
-        num_train_epochs=config['TRAIN']['num_epochs']  ,
-        weight_decay=config['TRAIN']['weight_decay'],    
-        save_total_limit=config['TRAIN']['save_total_limit'],  # Keep only last config['TRAIN']['save_total_limit'] checkpoints  
-        learning_rate=config['TRAIN']['learning_rate'],
-        warmup_ratio=config['TRAIN']['warmup_ratio'],  # Warm-up for the first config['TRAIN']['warmup_ratio']% of total training steps  
-        lr_scheduler_type= config['TRAIN']['lr_scheduler_type'] ,  
-        max_grad_norm= config['TRAIN']['max_grad_norm']   # Clipping threshold 
-        
+        logging_steps=10,
+        per_device_train_batch_size=batch_size,
+        per_device_eval_batch_size=batch_size,
+        num_train_epochs=num_epochs,
+        weight_decay=0.01,
+        save_total_limit=2,  # Keep only last 2 checkpoints
+        warmup_ratio=0.1,  # Warm-up for the first 10% of total training steps
+        lr_scheduler_type="cosine"  ,
+        max_grad_norm=1.0  # Clipping threshold (default: 1.0)
     )
 
     trainer = Trainer(
@@ -119,16 +98,19 @@ if __name__ == "__main__":
     # dataset = load_dataset('imdb')
     # dataset = load_dataset('yelp_polarity')
     # dataset = load_dataset('amazon_polarity')
-    dataset = load_dataset(config['DATASET']['dataset'])
+    dataset = load_dataset(config['DATASET'])
 
 
     # Define the models
-    ModelNames= config['MODEL']
+    ModelNames= config['MODEL']['dataset']
 
+    # Extract training configurations
+    batch_size = config['TRAIN']['batch_size']  
+    num_epochs = config['TRAIN']['num_epochs']
     # Train and evaluate models
     all_accuracy = {}
     for key, model_name in ModelNames.items():
-        eval_results = train_model(model_name, dataset, config)
+        eval_results = train_model(model_name, dataset, batch_size, num_epochs)
         all_accuracy[key] = eval_results.get("eval_accuracy", "N/A")
 
     print(f"\nEvaluation results: {all_accuracy}")

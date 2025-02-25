@@ -71,16 +71,16 @@ def train_model(model_name, dataset, config):
         eval_strategy="epoch", # eval_strategy evaluation_strategy
         save_strategy="epoch",
         logging_dir=logging_dir,
-        logging_steps=config['TRAIN']['logging_steps'],  
+        logging_steps=config['TRAIN']['logging_steps'],  #   
         per_device_train_batch_size=config['TRAIN']['batch_size'] ,
         per_device_eval_batch_size= config['TRAIN']['batch_size'] ,
         num_train_epochs=config['TRAIN']['num_epochs']  ,
-        weight_decay=config['TRAIN']['weight_decay'],    
-        save_total_limit=config['TRAIN']['save_total_limit'],  # Keep only last config['TRAIN']['save_total_limit'] checkpoints  
+        weight_decay=config['TRAIN']['weight_decay'],  #   
+        save_total_limit=config['TRAIN']['save_total_limit'],  # Keep only last 2 checkpoints  
         learning_rate=config['TRAIN']['learning_rate'],
-        warmup_ratio=config['TRAIN']['warmup_ratio'],  # Warm-up for the first config['TRAIN']['warmup_ratio']% of total training steps  
-        lr_scheduler_type= config['TRAIN']['lr_scheduler_type'] ,  
-        max_grad_norm= config['TRAIN']['max_grad_norm']   # Clipping threshold 
+        warmup_ratio=config['TRAIN']['warmup_ratio'],  # Warm-up for the first 10% of total training steps  
+        lr_scheduler_type= config['TRAIN']['lr_scheduler_type'] ,  # Learning rate scheduler type
+        max_grad_norm= config['TRAIN']['max_grad_norm']   # Clipping threshold (default: 1.0)
         
     )
 
