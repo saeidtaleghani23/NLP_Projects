@@ -1,6 +1,5 @@
 # install libraries
 #pip install transformers datasets torch scikit-learn pandas numpy matplotlib seaborn
-# Optional: pip install tensorboard
 
 # import libraries
 import os
@@ -41,7 +40,19 @@ def compute_metrics(eval_pred):
         "f1": f1
     }
 
-
+def is_tensorboard_available():
+    """Check if tensorboard is available."""
+    try:
+        import tensorboard
+        return True
+    except ImportError:
+        try:
+            import tensorboardX
+            return True
+        except ImportError:
+            return False
+        
+        
 def tokenize_dataset(dataset, tokenizer, text_key=None, max_length=512):
     """Tokenize dataset with specified tokenizer.
     
@@ -68,19 +79,6 @@ def tokenize_dataset(dataset, tokenizer, text_key=None, max_length=512):
         ), 
         batched=True
     )
-
-
-def is_tensorboard_available():
-    """Check if tensorboard is available."""
-    try:
-        import tensorboard
-        return True
-    except ImportError:
-        try:
-            import tensorboardX
-            return True
-        except ImportError:
-            return False
 
 
 def train_model(model_name: str, dataset, config: Dict[str, Any]) -> Dict[str, Any]:
@@ -120,11 +118,6 @@ def train_model(model_name: str, dataset, config: Dict[str, Any]) -> Dict[str, A
         logging_dir = os.path.join(config['TRAIN']['logging_dir'], model_name)
         os.makedirs(logging_dir, exist_ok=True)
         
-        # Check if tensorboard is available
-        tensorboard_available = is_tensorboard_available()
-        if not tensorboard_available:
-            print("TensorBoard not available. Disabling TensorBoard reporting.")
-        
         # Set up training arguments
         print(f"Setting up training with batch size: {config['TRAIN']['batch_size']}, epochs: {config['TRAIN']['num_epochs']}")
         training_args = TrainingArguments(
@@ -132,7 +125,7 @@ def train_model(model_name: str, dataset, config: Dict[str, Any]) -> Dict[str, A
             eval_strategy="epoch",
             save_strategy="epoch",
             logging_dir=logging_dir,
-            logging_steps=-1,  # config['TRAIN']['logging_steps'], # change it into -1 if you do not want to see the logs 
+            logging_steps=config['TRAIN']['logging_steps'],  
             per_device_train_batch_size=config['TRAIN']['batch_size'],
             per_device_eval_batch_size=config['TRAIN']['batch_size'],
             num_train_epochs=config['TRAIN']['num_epochs'],
@@ -144,8 +137,7 @@ def train_model(model_name: str, dataset, config: Dict[str, Any]) -> Dict[str, A
             max_grad_norm=config['TRAIN']['max_grad_norm'],
             load_best_model_at_end=True,
             metric_for_best_model="accuracy",
-            # Only enable tensorboard if available
-            report_to=["tensorboard"] if tensorboard_available else []
+            report_to="tensorboard"
         )
 
         # Initialize trainer
@@ -154,7 +146,7 @@ def train_model(model_name: str, dataset, config: Dict[str, Any]) -> Dict[str, A
             args=training_args,
             train_dataset=tokenized_dataset["train"],
             eval_dataset=tokenized_dataset["test"],
-            processing_class=tokenizer,
+            tokenizer=tokenizer,
             compute_metrics=compute_metrics
         )
 

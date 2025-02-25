@@ -129,10 +129,10 @@ def train_model(model_name: str, dataset, config: Dict[str, Any]) -> Dict[str, A
         print(f"Setting up training with batch size: {config['TRAIN']['batch_size']}, epochs: {config['TRAIN']['num_epochs']}")
         training_args = TrainingArguments(
             output_dir=output_dir_results,
-            eval_strategy="epoch",
+            evaluation_strategy="epoch",
             save_strategy="epoch",
             logging_dir=logging_dir,
-            logging_steps=-1,  # config['TRAIN']['logging_steps'], # change it into -1 if you do not want to see the logs 
+            logging_steps=config['TRAIN']['logging_steps'],  
             per_device_train_batch_size=config['TRAIN']['batch_size'],
             per_device_eval_batch_size=config['TRAIN']['batch_size'],
             num_train_epochs=config['TRAIN']['num_epochs'],
@@ -154,7 +154,7 @@ def train_model(model_name: str, dataset, config: Dict[str, Any]) -> Dict[str, A
             args=training_args,
             train_dataset=tokenized_dataset["train"],
             eval_dataset=tokenized_dataset["test"],
-            processing_class=tokenizer,
+            tokenizer=tokenizer,
             compute_metrics=compute_metrics
         )
 
