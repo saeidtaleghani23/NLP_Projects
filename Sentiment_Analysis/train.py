@@ -6,6 +6,8 @@
 import os
 import time
 import yaml
+import argparse
+
 import numpy as np
 import torch  # type:ignore
 from transformers import AutoTokenizer, AutoModelForSequenceClassification, Trainer, TrainingArguments  # type:ignore
@@ -205,15 +207,28 @@ def train_model(model_name: str, dataset, config: Dict[str, Any]) -> Dict[str, A
         }
 
 
+def parse_arguments():
+    """Parse command-line arguments."""
+    parser = argparse.ArgumentParser(description="Train and evaluate sentiment analysis models.")
+    parser.add_argument("--config", type=str, default="./config/config.yml", help="Path to config file")
+    parser.add_argument("--dataset", type=str, choices=['imdb', 'yelp_polarity', 'amazon_polarity'],
+                        help="Dataset to use", default="imdb")
+    return parser.parse_args()
+
 def main():
     """Main function to load config, datasets and train models."""
     try:
+        args = parse_arguments()
         # Load the configuration file
         config_path = './config/config.yml'
-        print(f"Loading configuration from {config_path}")
+        print(f"Loading configuration from {args.config}")
         
-        with open(config_path, 'r') as f:
+        with open(args.config, 'r') as f:
             config = yaml.safe_load(f)
+        
+         # Update dataset from user input if provided
+        if args.dataset:
+            config['DATASET']['dataset'] = args.dataset
         
         # Create directories if they don't exist
         os.makedirs(config['TRAIN']['output_dir'], exist_ok=True)

@@ -1,0 +1,99 @@
+# Sentiment Analysis with Transformer Models
+
+## Overview
+This project implements sentiment analysis using four transformer-based models: **BERT, DistilBERT, RoBERTa, and ALBERT**. It supports three different datasets: **IMDB, Yelp Polarity, and Amazon Polarity**. The models are trained and evaluated using standard classification metrics.
+
+## Project Structure
+```
+├── config/               # Configuration files
+│   ├── config.yml        # User-defined training settings
+├── env/                  # Environment setup files
+│   ├── env.yml           # Conda environment file
+├── src/                  # Source code
+│   ├── main.py           # Main script to train and evaluate models
+│   ├── train.py          # Training functions
+│   ├── utils.py          # Helper functions
+├── results/              # Stores evaluation results
+├── saved_models/         # Directory for saving trained models
+├── README.md             # Project documentation
+```
+
+## Installation
+### **1. Clone the Repository**
+```bash
+git clone https://github.com/your-username/sentiment-analysis-transformers.git
+cd sentiment-analysis-transformers
+```
+
+### **2. Set Up the Environment**
+Create a Conda environment using the provided `env.yml` file:
+```bash
+conda env create -f env/env.yml
+conda activate sentiment_env
+```
+
+### **3. Install Dependencies**
+If not using Conda, install dependencies manually:
+```bash
+pip install -r requirements.txt
+```
+
+## Usage
+### **Run the Training Script**
+To train and evaluate models, run:
+```bash
+python src/main.py --dataset imdb --config config/config.yml
+```
+Replace `imdb` with `yelp_polarity` or `amazon_polarity` as needed.
+
+## Configuration
+Modify `config/config.yml` to adjust training settings, model selection, batch size, learning rate, etc.
+
+Example configuration:
+```yaml
+DATASET:
+  dataset: imdb
+
+MODEL:
+  BERT: bert-base-uncased
+  DistilBERT: distilbert-base-uncased
+  RoBERTa: roberta-base
+  ALBERT: albert-base-v2
+
+TRAIN:
+  batch_size: 32
+  num_epochs: 3
+  learning_rate: 5e-5
+  output_dir: ./saved_models
+  logging_dir: ./logs
+  results_dir: ./results
+```
+
+## Results
+After training, the models achieved the following evaluation results:
+```
+==================================================
+FINAL EVALUATION RESULTS
+==================================================
+Model: RoBERTa (roberta-base)
+  - Accuracy: 0.9471
+  - F1 Score: 0.9472
+  - Training time: 50647.13 seconds
+Model: BERT (bert-base-uncased)
+  - Accuracy: 0.9328
+  - F1 Score: 0.9325
+  - Training time: 50693.49 seconds
+Model: ALBERT (albert-base-v2)
+  - Accuracy: 0.9272
+  - F1 Score: 0.9254
+  - Training time: 57387.47 seconds
+Model: DistilBERT (distilbert-base-uncased)
+  - Accuracy: 0.9251
+  - F1 Score: 0.9253
+  - Training time: 25787.94 seconds
+```
+
+
+## Author
+Developed by **Saeid Taleghani**. Feel free to reach out for collaboration!
+

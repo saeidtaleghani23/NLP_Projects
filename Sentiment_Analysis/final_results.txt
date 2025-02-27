@@ -1,0 +1,19 @@
+==================================================
+FINAL EVALUATION RESULTS
+==================================================
+Model: RoBERTa (roberta-base)
+  - Accuracy: 0.9471
+  - F1 Score: 0.9472
+  - Training time: 50647.13 seconds
+Model: BERT (bert-base-uncased)
+  - Accuracy: 0.9328
+  - F1 Score: 0.9325
+  - Training time: 50693.49 seconds
+Model: ALBERT (albert-base-v2)
+  - Accuracy: 0.9272
+  - F1 Score: 0.9254
+  - Training time: 57387.47 seconds
+Model: DistilBERT (distilbert-base-uncased)
+  - Accuracy: 0.9251
+  - F1 Score: 0.9253
+  - Training time: 25787.94 seconds
