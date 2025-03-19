@@ -62,7 +62,8 @@ After training, the model is evaluated using accuracy, precision, recall, and F1
 - Training logs are stored in multi_class_logs_<timestamp>/
 - Performance metrics are printed after training.
 
-<small>  
+<small><small>   
+
 **Text:** Fenerbahçeli futbolcular kısa paslarla hazırlık çalışması yaptılar  
 **Prediction:** spor  -  **True label:** spor  
 --------------------------------------------------  
@@ -90,6 +91,6 @@ After training, the model is evaluated using accuracy, precision, recall, and F1
 **Text:** Türkiye'nin kültürel zenginlikleri, dünya genelinde büyük ilgi görüyor.  
 **Prediction:** kultur  -  **True label:** kultur  
 --------------------------------------------------  
-</small>
+</small></small>
 
 
