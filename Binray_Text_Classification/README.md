@@ -1,22 +1,44 @@
+his project implements a **binary sentiment classification** model using **DistilBERT**. It is trained on the **IMDB dataset** and predicts whether a given text has a **positive** or **negative** sentiment. 
 
-# Text Classification Project
+## 🚀 Features
 
-## Introduction
+- **Uses DistilBERT** for sequence classification
+- **Trains on the IMDB dataset** with optimized preprocessing
+- **Implements early stopping** and TensorBoard logging
+- **Supports evaluation on a test set**
+- **Predicts sentiment on custom text inputs**
 
-**Text Classification** is a method of mapping a document, such as a social media post, email, or news article, to a predefined category or class. This is a fundamental task in Natural Language Processing (NLP), used in various real-world applications such as sentiment analysis, spam detection, and topic classification.
+## 🛠 Installation
 
-There are three main types of text classification problems:
+### 1️⃣ Clone this repository:
+```sh
+git clone https://github.com/saeidtaleghani23/NLP_Projects.git
+cd binary_sentence_classification
+```
 
-- **Binary Classification**: This involves two possible classes. For example, in sentiment analysis, the task could be to classify text as **positive** or **negative**.
-- **Multi-Class Classification**: This involves more than two classes, and the classes are **mutually exclusive**. For example, a news article can be classified into one of several categories such as **sports**, **politics**, **entertainment**, etc.
-- **Multi-Label Classification**: In this case, a document can belong to multiple classes simultaneously. For example, a news article may be related to both **sports** and **politics**, which means it receives **more than one label**.
+### 2️⃣ Install dependencies:
+``` sh
+conda env create -f env.yml
+```
 
-### Example Use Cases:
-- **Sentiment Analysis (Binary Classification)**: Classifying text into **positive** or **negative** sentiment.
-- **Topic Classification (Multi-Class Classification)**: Categorizing news articles into topics like **sports**, **technology**, **politics**, etc.
-- **Tagging (Multi-Label Classification)**: A news article can be tagged with multiple labels such as **sports**, **politics**, and **entertainment**.
+## 📊 Dataset
+The project uses the IMDB dataset from the Hugging Face datasets library.
 
----
+- Train Set: imdb_train
+- Validation Set: imdb_val
+- Test Set: imdb_test
 
-## Project Structure
+## 📜 Data Preprocessing
+- Tokenization: Uses DistilBertTokenizerFast with truncation & padding.
+- Concatenation: Splits test data into test, val, and train subsets.
+- Format Conversion: Converts dataset to PyTorch tensors.
+
+## ✅ Sample Output
+
+Text: This movie was absolutely fantastic! I loved every minute of it.
+Sentiment: Positive (confidence: 0.9994)
+--------------------------------------------------
+Text: What a waste of time. Terrible acting and boring plot.
+Sentiment: Negative (confidence: 0.9998)
+--------------------------------------------------
 
