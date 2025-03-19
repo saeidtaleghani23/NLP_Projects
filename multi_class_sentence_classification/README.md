@@ -62,4 +62,25 @@ After training, the model is evaluated using accuracy, precision, recall, and F1
 - Training logs are stored in multi_class_logs_<timestamp>/
 - Performance metrics are printed after training.
 
+Text: Fenerbahçeli futbolcular kısa paslarla hazırlık çalışması yaptılar
+Prediction: spor  -  True label: spor
+--------------------------------------------------
+Text: Türkiye’de mali istikrarı sağlamak ve yatırımları artırmak için yeni politikalar geliştirilmelidir.
+Prediction: ekonomi  -  True label: ekonomi
+--------------------------------------------------
+Text: Yapay zeka ve otomasyon, üretim sektöründe verimliliği artırarak maliyetleri düşürüyor.
+Prediction: teknoloji  -  True label: teknoloji
+--------------------------------------------------
+Text: Küresel ısınma, dünyanın ekosistemlerini ve iklim dengesini tehdit eden en büyük sorunlardan biridir.
+Prediction: teknoloji  -  True label: dunya
+--------------------------------------------------
+Text: Koronavirüs salgınında günlük vaka sayısı 50.000'in üzerine çıktı.
+Prediction: saglik  -  True label: saglik
+--------------------------------------------------
+Text: Türkiye'nin en büyük sorunu olan terör, son yıllarda büyük oranda azaldı.
+Prediction: siyaset  -  True label: siyaset
+--------------------------------------------------
+Text: Türkiye'nin kültürel zenginlikleri, dünya genelinde büyük ilgi görüyor.
+Prediction: kultur  -  True label: kultur
+--------------------------------------------------
 
