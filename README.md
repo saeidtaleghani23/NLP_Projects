@@ -21,6 +21,6 @@ NLP is transforming industries by:
 - Expands sentiment analysis to multiple categories.
 - Can be used for **spam detection, intent recognition, and topic classification**.
 
-### 3️⃣ **Attention-Based Models**
+### 3️⃣ **Attention From Scratch**
 - Implements **Transformer models** from scratch.
 - Explores attention mechanisms for text understanding.
