@@ -173,3 +173,6 @@ cython_debug/
 02- Sentiment_Analysis/saved_models/
 02- Sentiment_Analysis/results/
 02- Sentiment_Analysis/logs/
+05- Sentence_Pair_Regression/logs/
+05- Sentence_Pair_Regression/results/
+05- Sentence_Pair_Regression/saved_models/
