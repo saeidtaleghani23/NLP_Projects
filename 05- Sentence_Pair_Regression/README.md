@@ -27,6 +27,9 @@ conda env create -f env.yml
 ## 📊 Results
 
 example1_1 = "The cat sat on the mat."
+
 example1_2 = "The feline rest
+
+
 Predicted similarity between example sentences: 0.07 (scale 0-5)
 
