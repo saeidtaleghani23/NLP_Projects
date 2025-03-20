@@ -13,14 +13,18 @@ NLP is transforming industries by:
 
 ## 📂 Projects Included
 
-### 1️⃣ **Binary Text Classification**
+### 1️⃣ **Attention From Scratch**
+- Implements **Transformer models** from scratch.
+- Explores attention mechanisms for text understanding.
+
+### 2️⃣ **Sentiment Analysis**
+- Analyzes text to determine the sentiment (positive, negative, or neutral).
+- Can be applied to **customer reviews, social media analysis, and opinion mining**.
+
+### 3️⃣ **Binary Text Classification**
 - Implements sentiment analysis to classify text as **positive** or **negative**.
 - Uses models like **DistilBERT** for efficient text classification.
 
-### 2️⃣ **Multi-Class Sentence Classification**
+### 4️⃣ **Multi-Class Sentence Classification**
 - Expands sentiment analysis to multiple categories.
 - Can be used for **spam detection, intent recognition, and topic classification**.
-
-### 3️⃣ **Attention From Scratch**
-- Implements **Transformer models** from scratch.
-- Explores attention mechanisms for text understanding.
