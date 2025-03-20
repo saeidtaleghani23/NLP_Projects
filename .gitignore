@@ -170,6 +170,6 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 
-Sentiment_Analysis/saved_models/
-Sentiment_Analysis/results/
-Sentiment_Analysis/logs/
+02- Sentiment_Analysis/saved_models/
+02- Sentiment_Analysis/results/
+02- Sentiment_Analysis/logs/
