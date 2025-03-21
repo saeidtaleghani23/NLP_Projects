@@ -176,3 +176,5 @@ cython_debug/
 05- Sentence_Pair_Regression/logs/
 05- Sentence_Pair_Regression/results/
 05- Sentence_Pair_Regression/saved_models/
+06- Multilabel_Text_Classification/logs/
+06- Multilabel_Text_Classification/results/
